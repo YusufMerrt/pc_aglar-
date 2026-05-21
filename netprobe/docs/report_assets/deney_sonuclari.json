@@ -1,0 +1,101 @@
+[
+  {
+    "senaryo": "scenario_a_chunk_1024",
+    "aciklama": "Paket boyutu etkisi - 1024 byte chunk",
+    "basari": "3/3",
+    "sure_s": 0.0446,
+    "throughput_mbps": 94.05170573000001,
+    "retrans": 0.0,
+    "rtt_ms": 0.5996666666666667
+  },
+  {
+    "senaryo": "scenario_a_chunk_256",
+    "aciklama": "Paket boyutu etkisi - 256 byte chunk",
+    "basari": "3/3",
+    "sure_s": 0.17443333333333333,
+    "throughput_mbps": 24.06578934666667,
+    "retrans": 0.0,
+    "rtt_ms": 0.5966666666666667
+  },
+  {
+    "senaryo": "scenario_a_chunk_4096",
+    "aciklama": "Paket boyutu etkisi - 4096 byte chunk",
+    "basari": "3/3",
+    "sure_s": 0.012233333333333334,
+    "throughput_mbps": 345.4499421,
+    "retrans": 0.0,
+    "rtt_ms": 0.6229999999999999
+  },
+  {
+    "senaryo": "scenario_b_timeout_2000",
+    "aciklama": "Timeout etkisi - 2000ms, %5 kayıp",
+    "basari": "3/3",
+    "sure_s": 90.34400000000001,
+    "throughput_mbps": 0.09431386,
+    "retrans": 0.048966666666666665,
+    "rtt_ms": 0.8236666666666667
+  },
+  {
+    "senaryo": "scenario_b_timeout_200",
+    "aciklama": "Timeout etkisi - 200ms, %5 kayıp",
+    "basari": "3/3",
+    "sure_s": 10.252233333333333,
+    "throughput_mbps": 0.8305877266666666,
+    "retrans": 0.048966666666666665,
+    "rtt_ms": 0.5766666666666667
+  },
+  {
+    "senaryo": "scenario_b_timeout_500",
+    "aciklama": "Timeout etkisi - 500ms, %5 kayıp",
+    "basari": "3/3",
+    "sure_s": 23.793266666666668,
+    "throughput_mbps": 0.35840790333333333,
+    "retrans": 0.048966666666666665,
+    "rtt_ms": 0.7623333333333333
+  },
+  {
+    "senaryo": "scenario_c_loss_0",
+    "aciklama": "Kayıp oranı - 0%",
+    "basari": "3/3",
+    "sure_s": 0.08316666666666667,
+    "throughput_mbps": 100.90301927666665,
+    "retrans": 0.0,
+    "rtt_ms": 0.5676666666666667
+  },
+  {
+    "senaryo": "scenario_c_loss_15",
+    "aciklama": "Kayıp oranı - 15%",
+    "basari": "0/3",
+    "sure_s": null,
+    "throughput_mbps": 0.0,
+    "retrans": null,
+    "rtt_ms": null
+  },
+  {
+    "senaryo": "scenario_c_loss_5",
+    "aciklama": "Kayıp oranı - 5%",
+    "basari": "3/3",
+    "sure_s": 46.44453333333334,
+    "throughput_mbps": 0.18345194333333337,
+    "retrans": 0.048966666666666665,
+    "rtt_ms": 1.053
+  },
+  {
+    "senaryo": "scenario_d_file_100k",
+    "aciklama": "Dosya boyutu - 100 KB",
+    "basari": "3/3",
+    "sure_s": 0.01,
+    "throughput_mbps": 81.96390145666666,
+    "retrans": 0.0,
+    "rtt_ms": 0.649
+  },
+  {
+    "senaryo": "scenario_d_file_5m",
+    "aciklama": "Dosya boyutu - 5 MB",
+    "basari": "3/3",
+    "sure_s": 0.41573333333333334,
+    "throughput_mbps": 101.26239483666666,
+    "retrans": 0.0,
+    "rtt_ms": 0.5723333333333334
+  }
+]

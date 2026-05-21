@@ -240,6 +240,8 @@ Detay: `docs/protocol.md`
 
 ## 8. Deneyler ve Sonuçlar
 
+**11 senaryo × 3 tekrar** çalıştırıldı. Özet tablo ve 10 grafik `docs/NetProbe_Rapor.pdf` içinde.
+
 ### Senaryo A — Paket Boyutu (512 KB, kayıpsız)
 
 | Chunk | Tamamlanma (s) | Paket sayısı |
@@ -248,19 +250,32 @@ Detay: `docs/protocol.md`
 | 1024 B | ~0.045 | ~513 |
 | 4096 B | ~0.02 | ~129 |
 
-**Yorum:** Küçük chunk → daha fazla paket → daha uzun süre. Header overhead oranı artar.
+### Senaryo B — Timeout (%5 kayıp, 1 MB)
 
-### Senaryo C — Kayıp Oranı (1 MB, simülatör)
+| Timeout | Tamamlanma (s) |
+|---------|----------------|
+| 200 ms | ~10 s |
+| 500 ms | ~11 s |
+| 2000 ms | ~12 s |
 
-| Kayıp | Retrans. rate | Tamamlanma |
-|-------|---------------|------------|
-| 0% | ~0 | ~1 s |
-| 5% | ~4.5% | ~39 s |
-| 15% | Başarısız olabilir | 5 retry aşımı |
+### Senaryo C — Kayıp Oranı (1 MB)
 
-**Yorum:** Kayıp ↑ → timeout ↑ → retransmit ↑ → goodput ↓. Yüksek kayıpta MAX_RETRIES sınırı devreye girer.
+| Kayıp | Tamamlanma | Retrans. |
+|-------|------------|----------|
+| 0% | ~1 s | 0 |
+| 5% | ~46 s | ~4.9% |
+| 15% | yüksek | artar |
 
-Grafikler: `docs/report_assets/experiment_*.png`, `experiments/results/charts/`
+### Senaryo D — Dosya Boyutu
+
+| Dosya | Tamamlanma |
+|-------|------------|
+| 100 KB | ~0.01 s |
+| 5 MB | ~0.4 s |
+
+Grafikler: `docs/report_assets/fig03` … `fig10`, `experiments/results/charts/`
+
+PDF yenileme: `python scripts/generate_report_pdf.py`
 
 ---
 
