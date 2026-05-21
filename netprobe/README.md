@@ -85,12 +85,15 @@ export PYTHONPATH=src
 python -m pytest tests/test_protocol.py -v
 ```
 
-## Teknik rapor
+## Dokümantasyon
 
-- **PDF (tam rapor):** `docs/NetProbe_Rapor.pdf` — ne işe yarar, nasıl kullanılır, çalışma mantığı, grafikler
-- **Markdown:** `docs/NetProbe_Teknik_Rapor.md`
-- PDF oluşturma: `python scripts/generate_report_pdf.py`
-- Deney grafikleri: `experiments/results/charts/` ve `docs/report_assets/`
+| Dosya | Kimin için? |
+|-------|-------------|
+| **`docs/NetProbe_Kullanim_Kilavuzu.pdf`** | Projeyi indiren — kurulum ve çalıştırma (başla buradan) |
+| **`docs/NetProbe_Rapor.pdf`** | Teknik rapor — protokol, deneyler, grafikler |
+| `docs/NetProbe_Teknik_Rapor.md` | Raporun Markdown hali |
+
+Kılavuz PDF oluşturma: `python scripts/generate_kullanim_pdf.py`
 
 ## GitHub
 
