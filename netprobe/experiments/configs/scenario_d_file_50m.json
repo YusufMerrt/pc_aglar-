@@ -1,0 +1,14 @@
+{
+  "name": "scenario_d_file_50m",
+  "description": "Dosya boyutu - 50 MB",
+  "file_size_bytes": 52428800,
+  "chunk_size": 4096,
+  "timeout_ms": 1000,
+  "window_size": 8,
+  "loss_rate": 0,
+  "use_simulator": false,
+  "server_port": 9001,
+  "client_port": 9000,
+  "repeats": 1,
+  "timeout_sec": 300
+}

@@ -1,0 +1,13 @@
+{
+  "name": "scenario_c_loss_0",
+  "description": "Kayıp oranı - 0%",
+  "file_size_bytes": 1048576,
+  "chunk_size": 1024,
+  "timeout_ms": 1000,
+  "window_size": 8,
+  "loss_rate": 0,
+  "use_simulator": true,
+  "server_port": 9001,
+  "client_port": 9000,
+  "repeats": 3
+}

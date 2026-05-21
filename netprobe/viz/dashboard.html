@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>NetProbe Dashboard</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; background: #0f1419; color: #e7e9ea; }
+    h1 { color: #1d9bf0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+    .card { background: #16181c; border-radius: 12px; padding: 1rem; border: 1px solid #2f3336; }
+    .metric { font-size: 1.5rem; font-weight: bold; color: #00ba7c; }
+    img { max-width: 100%; border-radius: 8px; margin-top: 0.5rem; }
+    pre { background: #000; padding: 1rem; overflow: auto; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <h1>NetProbe — Performans Paneli</h1>
+  <p>Deney sonrası <code>experiments/results/*_summary.json</code> dosyasını seçin.</p>
+  <input type="file" id="fileInput" accept=".json" />
+  <div id="content" class="grid"></div>
+  <script>
+    document.getElementById('fileInput').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const data = JSON.parse(await file.text());
+      const agg = data.aggregate || {};
+      const cfg = data.config || {};
+      const el = document.getElementById('content');
+      el.innerHTML = `
+        <div class="card"><h3>${cfg.name || 'Deney'}</h3><p>${cfg.description || ''}</p></div>
+        <div class="card"><h3>Tamamlanma</h3><div class="metric">${(agg.completion_time_s?.mean ?? 0).toFixed(3)} s</div></div>
+        <div class="card"><h3>Throughput</h3><div class="metric">${(agg.throughput_bps?.mean ?? 0).toFixed(0)} bps</div></div>
+        <div class="card"><h3>Retrans. Rate</h3><div class="metric">${(agg.retransmission_rate?.mean ?? 0).toFixed(4)}</div></div>
+        <div class="card" style="grid-column: 1/-1"><h3>Ham veri</h3><pre>${JSON.stringify(data, null, 2)}</pre></div>
+      `;
+    });
+  </script>
+</body>
+</html>

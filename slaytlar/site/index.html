@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ITN v7 · Modül 1-9 Vize Soru Bankası</title>
+  <link rel="stylesheet" href="style.css?v=4" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">NET</div>
+        <div>
+          <h1>ITN v7 — Modül 1-9 · Vize Soru Bankası</h1>
+          <p class="subtitle">
+            Modül 1&rarr;9 tüm konular &middot; çoktan seçmeli, boşluk doldurma ve doğru/yanlış &middot;
+            cevapları kontrol edin, yanlışları tekrar edin.
+          </p>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="pill good"><span>Doğru:</span> <strong id="stat-correct">0</strong></div>
+        <div class="pill bad"><span>Yanlış:</span> <strong id="stat-wrong">0</strong></div>
+        <div class="pill"><span>Yanıtlanan:</span> <strong id="stat-answered">0</strong></div>
+        <button id="btn-review" class="btn btn-ghost">Yanlışları gözden geçir</button>
+      </div>
+    </div>
+
+    <div class="wrap view-switch">
+      <button id="btn-view-quiz" class="view-tab active" data-view="quiz">Soru Bankası</button>
+      <button id="btn-view-notes" class="view-tab" data-view="notes">Ders Notları</button>
+    </div>
+  </header>
+
+  <div id="view-quiz">
+  <nav class="toolbar">
+    <div class="wrap">
+      <div class="tabs" id="type-tabs">
+        <button class="tab active" data-type="all">Tümü</button>
+        <button class="tab" data-type="mcq">Çoktan seçmeli</button>
+        <button class="tab" data-type="fill">Boşluk doldurma</button>
+        <button class="tab" data-type="tf">Doğru / Yanlış</button>
+      </div>
+
+      <div class="filters">
+        <label>
+          Konu
+          <select id="topic-filter"></select>
+        </label>
+
+        <div class="counter">
+          <span>Soru</span>
+          <strong id="counter-cur">1</strong>
+          <span>/</span>
+          <strong id="counter-total">0</strong>
+        </div>
+
+        <button id="btn-reset" class="btn btn-soft">Sıfırla</button>
+      </div>
+    </div>
+  </nav>
+
+  <section class="exam-builder">
+    <div class="wrap">
+      <details>
+        <summary><strong>&#9656; Sınav oluştur</strong> (konu, tür, soru sayısı)</summary>
+        <div class="builder-grid">
+          <label>
+            Konu
+            <select id="exam-topic">
+              <option value="all">Tüm konular</option>
+            </select>
+          </label>
+          <label>
+            Tür
+            <select id="exam-type">
+              <option value="all">Tüm türler</option>
+              <option value="mcq">Çoktan seçmeli</option>
+              <option value="fill">Boşluk doldurma</option>
+              <option value="tf">Doğru / Yanlış</option>
+            </select>
+          </label>
+          <label>
+            Soru sayısı
+            <input id="exam-count" type="number" min="1" max="500" value="20" />
+          </label>
+          <button id="btn-start-exam" class="btn btn-primary">Sınavı başlat</button>
+          <button id="btn-stop-exam" class="btn btn-soft" style="display:none">Sınavdan çık</button>
+        </div>
+        <div id="exam-banner" class="banner" style="display:none"></div>
+      </details>
+    </div>
+  </section>
+
+  <main class="wrap main">
+    <article id="card" class="card">
+      <!-- Soru buraya render edilecek -->
+    </article>
+
+    <div class="nav-row">
+      <button id="btn-prev" class="btn btn-ghost">&larr; Önceki</button>
+      <button id="btn-check" class="btn btn-primary">Cevabı kontrol et</button>
+      <button id="btn-next" class="btn btn-ghost">Sonraki soru &rarr;</button>
+    </div>
+
+    <div id="feedback" class="feedback" style="display:none"></div>
+  </main>
+  </div><!-- /view-quiz -->
+
+  <section id="view-notes" class="notes-view wrap" style="display:none">
+    <aside class="notes-toc">
+      <h3>Modüller</h3>
+      <nav id="notes-nav"></nav>
+    </aside>
+    <article id="notes-content" class="notes-content">
+      <!-- Notlar buraya render edilecek -->
+    </article>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      Kaynak: ITN v7 Modül 1-9 slaytları (Introduction to Networks).
+      Sorular yalnızca slayt içeriğinden üretilmiştir.
+    </div>
+  </footer>
+
+  <script src="questions.js?v=2"></script>
+  <script src="notes.js?v=1"></script>
+  <script src="app.js?v=3"></script>
+</body>
+</html>

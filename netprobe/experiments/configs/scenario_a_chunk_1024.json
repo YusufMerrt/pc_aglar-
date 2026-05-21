@@ -1,0 +1,13 @@
+{
+  "name": "scenario_a_chunk_1024",
+  "description": "Paket boyutu etkisi - 1024 byte chunk",
+  "file_size_bytes": 524288,
+  "chunk_size": 1024,
+  "timeout_ms": 1000,
+  "window_size": 8,
+  "loss_rate": 0,
+  "use_simulator": false,
+  "server_port": 9001,
+  "client_port": 9000,
+  "repeats": 3
+}

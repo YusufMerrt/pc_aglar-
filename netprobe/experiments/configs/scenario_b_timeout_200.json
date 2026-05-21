@@ -1,0 +1,13 @@
+{
+  "name": "scenario_b_timeout_200",
+  "description": "Timeout etkisi - 200ms, %5 kayıp",
+  "file_size_bytes": 1048576,
+  "chunk_size": 1024,
+  "timeout_ms": 200,
+  "window_size": 8,
+  "loss_rate": 0.05,
+  "use_simulator": true,
+  "server_port": 9001,
+  "client_port": 9000,
+  "repeats": 3
+}
