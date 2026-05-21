@@ -31,7 +31,9 @@ python src/server.py --port 9001 --out-dir received/
 **Terminal 2 — İstemci:**
 ```bash
 export PYTHONPATH=src
-python src/client.py --host 127.0.0.1 --port 9001 --file /path/to/dosya.bin
+mkdir -p test_files
+echo "Merhaba NetProbe" > test_files/merhaba.txt
+python src/client.py --host 127.0.0.1 --port 9001 --file test_files/merhaba.txt
 ```
 
 ## Simülatör ile (% kayıp)

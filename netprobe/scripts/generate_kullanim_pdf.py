@@ -151,7 +151,11 @@ def build() -> None:
         st["body"],
     ))
 
-    story.append(Paragraph("4.1 Test dosyası oluşturma (isteğe bağlı)", st["h2"]))
+    story.append(Paragraph("4.1 Test dosyası oluşturma", st["h2"]))
+    story.append(Paragraph(
+        "<b>Önemli:</b> Önce klasörü oluşturun; yoksa 'no such file or directory' hatası alırsınız.",
+        st["note"],
+    ))
     story += cmd_block(st, "mkdir -p test_files\necho 'Merhaba NetProbe' > test_files/merhaba.txt")
 
     story.append(Paragraph("4.2 Terminal 1 — Sunucuyu başlat", st["h2"]))
