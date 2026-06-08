@@ -1,0 +1,16 @@
+.DS_Store
+**/.DS_Store
+__pycache__/
+*.pyc
+.env
+teslim/
+Grup08_NetProbe/
+Grup08_NetProbe.zip
+
+# NetProbe çalışma zamanı çıktıları
+netprobe/received/
+netprobe/received_smoke/
+netprobe/experiments/results/logs/
+netprobe/experiments/results/charts/
+netprobe/experiments/results/run_*
+netprobe/experiments/results/scenario_*/

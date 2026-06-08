@@ -151,12 +151,13 @@ def build() -> None:
         st["body"],
     ))
 
-    story.append(Paragraph("4.1 Test dosyası oluşturma", st["h2"]))
+    story.append(Paragraph("4.1 Test dosyası", st["h2"]))
     story.append(Paragraph(
-        "<b>Önemli:</b> Önce klasörü oluşturun; yoksa 'no such file or directory' hatası alırsınız.",
-        st["note"],
+        "Projede hazır test dosyası vardır: <b>test_files/merhaba.txt</b>. Doğrudan kullanabilirsiniz. "
+        "Kendi dosyanızı denemek için önce klasörü oluşturun (yoksa 'no such file or directory' hatası alırsınız):",
+        st["body"],
     ))
-    story += cmd_block(st, "mkdir -p test_files\necho 'Merhaba NetProbe' > test_files/merhaba.txt")
+    story += cmd_block(st, "# Hazır dosya (önerilen):\n# test_files/merhaba.txt\n\n# Kendi dosyanız için:\nmkdir -p test_files\necho 'Merhaba NetProbe' > test_files/merhaba.txt")
 
     story.append(Paragraph("4.2 Terminal 1 — Sunucuyu başlat", st["h2"]))
     story += cmd_block(st, "cd netprobe          # proje klasörüne gir\nexport PYTHONPATH=src\npython src/server.py --port 9001 --out-dir received/")
@@ -194,15 +195,50 @@ def build() -> None:
         st["note"],
     ))
 
-    story.append(Paragraph("7. Deney çalıştırma (isteğe bağlı)", st["h1"]))
-    story += cmd_block(st, "export PYTHONPATH=src\npython scripts/run_experiment.py --config experiments/configs/scenario_a_chunk_1024.json\npython src/analyze.py")
-    story.append(Paragraph(
-        "Grafikler: experiments/results/charts/ klasöründe oluşur.",
-        st["note"],
+    story.append(Paragraph("7. Deney ve rapor üretme", st["h1"]))
+    story.append(Paragraph("7.1 Tek deney çalıştırma", st["h2"]))
+    story += cmd_block(st,
+        "export PYTHONPATH=src\n"
+        "python scripts/run_experiment.py \\\n"
+        "  --config experiments/configs/scenario_a_chunk_1024.json\n"
+        "# Sonuç: experiments/results/scenario_a_chunk_1024_summary.json"
+    )
+    story.append(Paragraph("7.2 Grafik üretme", st["h2"]))
+    story += cmd_block(st, "python src/analyze.py\n# Çıktı: experiments/results/charts/*.png")
+    story.append(Paragraph("7.3 Teknik rapor PDF (grafikli, deney yorumlu)", st["h2"]))
+    story += cmd_block(st, "python scripts/generate_report_pdf.py\n# Çıktı: docs/NetProbe_Rapor.pdf")
+    story.append(Paragraph("7.4 Bu kılavuzu yeniden üretme", st["h2"]))
+    story += cmd_block(st, "python scripts/generate_kullanim_pdf.py\n# Çıktı: docs/NetProbe_Kullanim_Kilavuzu.pdf")
+    story.append(Paragraph("7.5 Hazır deney listesi", st["h2"]))
+    story.append(table_simple(
+        ["Config dosyası", "Ne test eder?"],
+        [
+            ["scenario_a_chunk_256.json", "Paket boyutu 256 B"],
+            ["scenario_a_chunk_1024.json", "Paket boyutu 1024 B"],
+            ["scenario_b_timeout_500.json", "Timeout 500 ms, %5 kayıp"],
+            ["scenario_c_loss_5.json", "%5 paket kaybı"],
+            ["scenario_d_file_5m.json", "5 MB dosya"],
+        ],
+        st,
     ))
 
     story.append(PageBreak())
-    story.append(Paragraph("8. Sık karşılaşılan sorunlar", st["h1"]))
+    story.append(Paragraph("8. İstemci parametreleri", st["h1"]))
+    story.append(table_simple(
+        ["Parametre", "Örnek", "Açıklama"],
+        [
+            ["--file", "test_files/merhaba.txt", "Gönderilecek dosya (zorunlu)"],
+            ["--port", "9001", "Hedef UDP portu"],
+            ["--host", "127.0.0.1", "Sunucu adresi"],
+            ["--chunk-size", "1024", "Parça boyutu (byte)"],
+            ["--timeout", "1000", "ACK bekleme (ms)"],
+            ["--window", "8", "Sliding window boyutu"],
+        ],
+        st,
+    ))
+
+    story.append(PageBreak())
+    story.append(Paragraph("9. Sık karşılaşılan sorunlar", st["h1"]))
     story.append(table_simple(
         ["Sorun", "Çözüm"],
         [
@@ -216,21 +252,44 @@ def build() -> None:
     ))
 
     story.append(Spacer(1, 0.5 * cm))
-    story.append(Paragraph("9. Klasör yapısı (özet)", st["h1"]))
+    story.append(Paragraph("10. Dokümantasyon dosyaları", st["h1"]))
+    story.append(table_simple(
+        ["Dosya", "İçerik"],
+        [
+            ["docs/NetProbe_Kullanim_Kilavuzu.pdf", "Bu kılavuz — kurulum ve çalıştırma"],
+            ["docs/NetProbe_Rapor.pdf", "Teknik rapor — protokol, deneyler, grafik açıklamaları"],
+            ["README.md", "Hızlı başvuru (GitHub için)"],
+        ],
+        st,
+    ))
+
+    story.append(Paragraph("11. Klasör yapısı (özet)", st["h1"]))
     story += cmd_block(st,
         "netprobe/\n"
         "  src/          → Ana programlar (client, server, ...)\n"
-        "  scripts/      → smoke_test, deney scriptleri\n"
+        "  scripts/      → smoke_test, deney, PDF üretimi\n"
+        "  test_files/   → Hazır test dosyası (merhaba.txt)\n"
         "  received/     → Sunucunun kaydettiği dosyalar\n"
-        "  experiments/  → Deney ayarları ve sonuçlar\n"
-        "  docs/         → Raporlar ve bu kılavuz"
+        "  experiments/  → Deney config ve sonuçlar\n"
+        "  docs/         → PDF raporlar"
     )
 
-    story.append(Paragraph("10. Hızlı komut özeti", st["h1"]))
+    story.append(Paragraph("12. Sunum / demo kontrol listesi", st["h1"]))
+    for item in [
+        "Terminal 1: sunucu — Listening on UDP port 9001",
+        "Terminal 2: client — Transfer complete",
+        "cat received/merhaba.txt → Merhaba NetProbe",
+        "İsteğe bağlı: python scripts/smoke_test.py → All tests passed",
+        "Sunumda göster: docs/NetProbe_Rapor.pdf",
+    ]:
+        story.append(Paragraph(f"• {item}", st["step"]))
+
+    story.append(Paragraph("13. Hızlı komut özeti", st["h1"]))
     story.append(Paragraph(
-        "<b>Sunucu:</b> python src/server.py --port 9001<br/>"
-        "<b>İstemci:</b> python src/client.py --port 9001 --file DOSYA<br/>"
-        "<b>Test:</b> python scripts/smoke_test.py",
+        "<b>Sunucu:</b> python src/server.py --port 9001 --out-dir received/<br/>"
+        "<b>İstemci:</b> python src/client.py --port 9001 --file test_files/merhaba.txt<br/>"
+        "<b>Test:</b> python scripts/smoke_test.py<br/>"
+        "<b>Rapor PDF:</b> python scripts/generate_report_pdf.py",
         st["body"],
     ))
 

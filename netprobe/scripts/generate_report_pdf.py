@@ -30,6 +30,15 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "docs" / "report_assets"
 RESULTS = ROOT / "experiments" / "results"
 OUT_PDF = ROOT / "docs" / "NetProbe_Rapor.pdf"
+BTU_LOGO = ASSETS / "btu_logo.png"
+GITHUB_URL = "https://github.com/YusufMerrt/pc_aglar-"
+GROUP_NO = "Grup 08"
+PROJECT_TITLE = "NetProbe"
+AUTHORS = [
+    "Yusuf Mert Özkul",
+    "Nermin Baycan",
+    "Fatma Nur Yazıcı",
+]
 
 PAGE_W, PAGE_H = A4
 MARGIN_L = 2.2 * cm
@@ -152,6 +161,14 @@ def make_styles() -> dict:
             "cover_meta", fontName=FONT_REG, fontSize=11, leading=15,
             alignment=TA_CENTER, textColor=colors.HexColor("#566573"), spaceAfter=6,
         ),
+        "cover_author": ParagraphStyle(
+            "cover_author", fontName=FONT_REG, fontSize=11, leading=16,
+            alignment=TA_CENTER, textColor=colors.HexColor("#2C3E50"), spaceAfter=4,
+        ),
+        "cover_link": ParagraphStyle(
+            "cover_link", fontName=FONT_REG, fontSize=10, leading=14,
+            alignment=TA_CENTER, textColor=colors.HexColor("#2874A6"), spaceAfter=6,
+        ),
         "h1": ParagraphStyle(
             "h1", fontName=FONT_BOLD, fontSize=14, leading=18,
             textColor=colors.HexColor("#1A5276"), spaceBefore=16, spaceAfter=10,
@@ -220,7 +237,22 @@ class NumberedCanvas:
 
 def cover_page(styles: dict) -> list:
     story = []
-    story.append(Spacer(1, 5.5 * cm))
+    if BTU_LOGO.exists():
+        logo_w = 5.5 * cm
+        logo_h = logo_w * (768 / 1078)
+        logo = Image(str(BTU_LOGO), width=logo_w, height=logo_h)
+        logo.hAlign = "CENTER"
+        story.append(Spacer(1, 1.2 * cm))
+        story.append(logo)
+        story.append(Spacer(1, 0.8 * cm))
+    else:
+        story.append(Spacer(1, 3 * cm))
+
+    story.append(Paragraph(
+        f'<a href="{GITHUB_URL}" color="#2874A6">{GITHUB_URL}</a>',
+        styles["cover_link"],
+    ))
+    story.append(Spacer(1, 0.6 * cm))
     story.append(Paragraph("NetProbe", styles["cover_title"]))
     story.append(Spacer(1, 0.4 * cm))
     story.append(Paragraph(
@@ -228,11 +260,16 @@ def cover_page(styles: dict) -> list:
         "Trafik İzleme ve Ağ Performans Analiz Platformu",
         styles["cover_sub"],
     ))
-    story.append(Spacer(1, 2.5 * cm))
+    story.append(Spacer(1, 0.4 * cm))
+    story.append(Paragraph(GROUP_NO, styles["cover_meta"]))
+    story.append(Spacer(1, 1.4 * cm))
     story.append(Paragraph("Bursa Teknik Üniversitesi", styles["cover_meta"]))
     story.append(Paragraph("Bilgisayar Mühendisliği Bölümü", styles["cover_meta"]))
     story.append(Paragraph("Bilgisayar Ağları Dersi — Dönem Projesi", styles["cover_meta"]))
-    story.append(Spacer(1, 1.5 * cm))
+    story.append(Spacer(1, 1.0 * cm))
+    for author in AUTHORS:
+        story.append(Paragraph(author, styles["cover_author"]))
+    story.append(Spacer(1, 1.0 * cm))
     story.append(Paragraph("Teknik Rapor", styles["cover_meta"]))
     story.append(PageBreak())
     return story
@@ -302,6 +339,12 @@ def build_story(styles: dict) -> list:
 
     # 1. Giriş
     s.append(Paragraph("1. Giriş ve Proje Özeti", styles["h1"]))
+    s.append(Paragraph(
+        f"Proje kaynak kodu ve tüm dosyalar: "
+        f'<a href="{GITHUB_URL}" color="#2874A6">{GITHUB_URL}</a><br/>'
+        f"<b>{GROUP_NO}</b> — <b>Proje ekibi:</b> {', '.join(AUTHORS)}",
+        styles["body"],
+    ))
     s.append(Paragraph(
         "Bu rapor, Bilgisayar Ağları dersi dönem projesi kapsamında geliştirilen <b>NetProbe</b> "
         "sisteminin tasarımını, çalışma prensibini, kullanımını ve deneysel performans sonuçlarını "
@@ -721,7 +764,7 @@ def build_story(styles: dict) -> list:
         "• Kullanım kılavuzu: docs/NetProbe_Kullanim_Kilavuzu.pdf<br/>"
         "• Ham deney verileri: experiments/results/*_summary.json<br/>"
         "• Grafik kaynakları: docs/report_assets/<br/>"
-        "• GitHub: README içindeki depo bağlantısı",
+        f'• GitHub: <a href="{GITHUB_URL}" color="#2874A6">{GITHUB_URL}</a>',
         styles["body"],
     ))
 
